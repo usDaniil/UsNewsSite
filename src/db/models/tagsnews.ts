@@ -1,16 +1,16 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
+import { Tag } from './tags';
+import { News } from './news';
 
 @Table
-export class News extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  tagId: string;
+export class TagsNews extends Model {
+  @ForeignKey(() => Tag)
+  @Column
+  tagId: number;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  newsId: string;
+  @ForeignKey(() => News)
+  @Column
+  userId: number;
 }
+
+*

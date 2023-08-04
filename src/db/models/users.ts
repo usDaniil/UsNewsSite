@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 
+import { News } from './news';
 @Table
 export class User extends Model {
   @Column({
@@ -35,4 +36,7 @@ export class User extends Model {
     type: DataType.DATE,
   })
   updatedAt: Date;
+
+  @HasMany(() => News)
+  players: News[];
 }

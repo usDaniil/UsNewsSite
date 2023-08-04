@@ -1,4 +1,15 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
+} from 'sequelize-typescript';
+import { User } from './users';
+import { TagsNews } from './tagsnews';
+import { Tag } from './tags';
 
 @Table
 export class News extends Model {
@@ -8,11 +19,9 @@ export class News extends Model {
   })
   header: string;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  author: number;
+  @ForeignKey(() => User)
+  @Column
+  userId: number;
 
   @Column({
     type: DataType.STRING,
@@ -34,4 +43,10 @@ export class News extends Model {
     type: DataType.DATE,
   })
   updatedAt: Date;
+
+  @BelongsTo(() => User)
+  user: User;
+
+  @BelongsToMany(() => Tag, () => TagsNews)
+  tags: Tag[];
 }
