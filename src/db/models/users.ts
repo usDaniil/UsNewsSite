@@ -1,6 +1,18 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  Length,
+  BeforeUpdate,
+  BeforeCreate,
+} from 'sequelize-typescript';
+import hasher from 'bcrypt';
 
 import { News } from './news';
+
+const SALT = hasher.genSaltSync();
 @Table
 export class User extends Model {
   @Column({
@@ -16,11 +28,20 @@ export class User extends Model {
   })
   login: string;
 
+  @Length({ min: 0, max: 255 })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   password: string;
+  @BeforeCreate
+  static async hashPassword(instance: User) {
+    instance.password = await hasher.hash(instance.password, SALT);
+  }
+
+  async compare(password: string): Promise<boolean> {
+    return await hasher.compare(password, this.password);
+  }
 
   @Column({
     type: DataType.STRING,
