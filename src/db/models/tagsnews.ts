@@ -12,5 +12,3 @@ export class TagsNews extends Model {
   @Column
   userId: number;
 }
-
-*

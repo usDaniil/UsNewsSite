@@ -4,11 +4,14 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
+import { TagsNews } from './db/models/tagsnews';
+import { Tag } from './db/models/tags';
+import { News } from './db/models/news';
+import { User } from './db/models/users';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
@@ -17,9 +20,8 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      synchronize: true,
+      models: [User, News, Tag, TagsNews],
     }),
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,14 +5,13 @@ import {
   DataType,
   HasMany,
   Length,
-  BeforeUpdate,
   BeforeCreate,
 } from 'sequelize-typescript';
 import hasher from 'bcrypt';
 
 import { News } from './news';
 
-const SALT = hasher.genSaltSync();
+const SALT = 20;
 @Table
 export class User extends Model {
   @Column({
