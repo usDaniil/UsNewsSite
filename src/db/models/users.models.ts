@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 import hasher from 'bcrypt';
 
-import { News } from './news';
+import { News } from './news.models';
 
 const SALT = process.env.SALT;
 @Table

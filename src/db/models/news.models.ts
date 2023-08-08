@@ -7,9 +7,9 @@ import {
   BelongsTo,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { User } from './users';
-import { TagsNews } from './tagsnews';
-import { Tag } from './tags';
+import { User } from './users.models';
+import { TagsNews } from './tagsnews.models';
+import { Tag } from './tags.models';
 
 @Table
 export class News extends Model {

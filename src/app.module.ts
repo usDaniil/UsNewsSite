@@ -4,10 +4,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TagsNews } from './db/models/tagsnews';
-import { Tag } from './db/models/tags';
+import { TagsNews } from './db/models/tagsnews.models';
+import { Tag } from './db/models/tags.models.ts';
 import { News } from './db/models/news';
-import { User } from './db/models/users';
+import { User } from './db/models/users.models';
 
 @Module({
   imports: [
