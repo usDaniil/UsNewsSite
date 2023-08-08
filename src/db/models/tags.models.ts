@@ -14,6 +14,7 @@ export class Tag extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    unique: true,
   })
   title: string;
 

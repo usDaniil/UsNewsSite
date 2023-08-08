@@ -1,5 +1,3 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TagsNews', {
@@ -12,10 +10,20 @@ module.exports = {
       tagId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Tags',
+          key: 'id',
+        },
       },
       newsId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'News',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

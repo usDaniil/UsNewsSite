@@ -1,4 +1,5 @@
 import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
+
 import { Tag } from './tags.models.js';
 import { News } from './news.models.js';
 

@@ -8,15 +8,20 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       header: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       author: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       text: {
