@@ -21,15 +21,11 @@ export class News extends Model {
   header?: string;
 
   @ForeignKey(() => User)
-  @Column
-  userId?: {
-    allowNull: true;
-    onDelete: 'CASCADE';
-    references: {
-      model: 'User';
-      key: 'id';
-    };
-  };
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+  })
+  userId?: number;
 
   @Column({
     type: DataType.STRING,
