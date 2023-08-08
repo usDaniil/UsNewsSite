@@ -1,12 +1,8 @@
-import { readdirSync } from 'fs';
-import { env as _env } from 'process';
-import { basename as _basename, join } from 'path';
-
 import Sequelize, { DataTypes } from 'sequelize';
+import { basename as _basename, join } from 'path';
+import Sequelize from 'sequelize';
 
-const basename = _basename(__filename);
-const env = _env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+import config from '../config';
 const db = {};
 
 let sequelize;

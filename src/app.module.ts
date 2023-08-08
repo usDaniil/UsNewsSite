@@ -4,10 +4,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TagsNews } from './db/models/tagsnews.models';
-import { Tag } from './db/models/tags.models';
-import { News } from './db/models/news.models';
-import { User } from './db/models/users.models';
+import { TagNews } from './db/models/tagnews.model';
+import { Tag } from './db/models/tag.model';
+import { News } from './db/models/news.model';
+import { User } from './db/models/user.model';
 import { Dialect } from 'sequelize/types/sequelize';
 
 @Module({
@@ -21,7 +21,7 @@ import { Dialect } from 'sequelize/types/sequelize';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      models: [User, News, Tag, TagsNews],
+      models: [User, News, Tag, TagNews],
     }),
   ],
   controllers: [AppController],

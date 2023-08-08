@@ -8,20 +8,19 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       header: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       author: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'id',
         },
       },
       image: {
-        allowNull: true,
         type: Sequelize.STRING,
       },
       text: {
@@ -31,10 +30,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },

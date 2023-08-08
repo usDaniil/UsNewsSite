@@ -21,7 +21,6 @@ module.exports = {
         type: Sequelize.STRING,
       },
       avatar: {
-        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -32,6 +31,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },

@@ -8,9 +8,9 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 
-import { User } from './users.models';
-import { TagsNews } from './tagsnews.models';
-import { Tag } from './tags.models';
+import { User } from './user.model';
+import { TagNews } from './tagnews.model';
+import { Tag } from './tag.model';
 
 @Table
 export class News extends Model {
@@ -18,14 +18,13 @@ export class News extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  header?: string;
+  header: string;
 
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
-    allowNull: true,
   })
-  userId?: number;
+  userId: number;
 
   @Column({
     type: DataType.STRING,
@@ -53,6 +52,6 @@ export class News extends Model {
   @BelongsTo(() => User)
   user: User;
 
-  @BelongsToMany(() => Tag, () => TagsNews)
+  @BelongsToMany(() => Tag, () => TagNews)
   tags: Tag[];
 }
