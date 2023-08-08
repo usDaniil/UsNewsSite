@@ -11,7 +11,7 @@ import hasher from 'bcrypt';
 
 import { News } from './news';
 
-const SALT = 20;
+const SALT = process.env.SALT;
 @Table
 export class User extends Model {
   @Column({
@@ -45,7 +45,7 @@ export class User extends Model {
   @Column({
     type: DataType.STRING,
   })
-  avatar: string;
+  avatar?: string;
 
   @Column({
     type: DataType.DATE,
@@ -58,5 +58,5 @@ export class User extends Model {
   updatedAt: Date;
 
   @HasMany(() => News)
-  players: News[];
+  news: News[];
 }

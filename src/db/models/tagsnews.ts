@@ -10,5 +10,5 @@ export class TagsNews extends Model {
 
   @ForeignKey(() => News)
   @Column
-  userId: number;
+  newsId: number;
 }

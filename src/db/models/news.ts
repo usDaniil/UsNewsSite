@@ -17,17 +17,24 @@ export class News extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  header: string;
+  header?: string;
 
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userId?: {
+    allowNull: true;
+    onDelete: 'CASCADE';
+    references: {
+      model: 'User';
+      key: 'id';
+    };
+  };
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  image: string;
+  image?: string;
 
   @Column({
     type: DataType.TEXT,
@@ -37,7 +44,9 @@ export class News extends Model {
   @Column({
     type: DataType.DATE,
   })
-  createdAt: Date;
+  createdAt: {
+    allowNull: false;
+  };
 
   @Column({
     type: DataType.DATE,
