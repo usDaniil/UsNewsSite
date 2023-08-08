@@ -18,9 +18,7 @@ export class TagNews extends Model {
   @Column({
     type: DataType.DATE,
   })
-  createdAt: {
-    allowNull: false;
-  };
+  createdAt: Date;
 
   @Column({
     type: DataType.DATE,

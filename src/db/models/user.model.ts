@@ -11,7 +11,6 @@ import hasher from 'bcrypt';
 
 import { News } from './news.model';
 
-const SALT = process.env.SALT;
 @Table
 export class User extends Model {
   @Column({
@@ -35,7 +34,7 @@ export class User extends Model {
   password: string;
   @BeforeCreate
   static async hashPassword(instance: User) {
-    instance.password = await hasher.hash(instance.password, SALT);
+    instance.password = await hasher.hash(instance.password, process.env.SALT);
   }
 
   async compare(password: string): Promise<boolean> {

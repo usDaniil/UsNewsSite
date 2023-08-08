@@ -1,6 +1,6 @@
 import Sequelize, { DataTypes } from 'sequelize';
 import { basename as _basename, join } from 'path';
-import Sequelize from 'sequelize';
+import { readdirSync } from 'fs';
 
 import config from '../config';
 const db = {};

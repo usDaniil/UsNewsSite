@@ -40,9 +40,7 @@ export class News extends Model {
   @Column({
     type: DataType.DATE,
   })
-  createdAt: {
-    allowNull: false;
-  };
+  createdAt: Date;
 
   @Column({
     type: DataType.DATE,
