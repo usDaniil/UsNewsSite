@@ -37,7 +37,7 @@ export class User extends Model {
     instance.password = await hasher.hash(instance.password, process.env.SALT);
   }
 
-  async compare(password: string): Promise<boolean> {
+  async validationPassword(password: string): Promise<boolean> {
     return await hasher.compare(password, this.password);
   }
 

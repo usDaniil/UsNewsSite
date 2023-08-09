@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      avatar: {
+      avatarPath: {
         type: Sequelize.STRING,
       },
       createdAt: {

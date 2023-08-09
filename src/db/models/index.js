@@ -1,4 +1,3 @@
-import Sequelize, { DataTypes } from 'sequelize';
 import { basename, join } from 'path';
 import { readdirSync } from 'fs';
 

@@ -10,7 +10,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      author: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -19,7 +19,7 @@ module.exports = {
           key: 'id',
         },
       },
-      image: {
+      imagePath: {
         type: Sequelize.STRING,
       },
       text: {
