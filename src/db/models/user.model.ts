@@ -41,8 +41,8 @@ export class User extends Model {
     );
   }
 
-  async validatePassword(password: string): Promise<boolean> {
-    return await bcrypt.compare(password, this.password);
+  validatePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
   }
 
   @Column({
