@@ -7,7 +7,7 @@ import {
   Length,
   BeforeCreate,
 } from 'sequelize-typescript';
-import hasher from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 import { News } from './news.model';
 
@@ -26,19 +26,20 @@ export class User extends Model {
   })
   login: string;
 
-  @Length({ min: 0, max: 255 })
+  @Length({ min: 6, max: 255 })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   password: string;
+
   @BeforeCreate
   static async hashPassword(instance: User) {
-    instance.password = await hasher.hash(instance.password, process.env.SALT);
+    instance.password = await bcrypt.hash(instance.password, process.env.SALT);
   }
 
   async validationPassword(password: string): Promise<boolean> {
-    return await hasher.compare(password, this.password);
+    return await bcrypt.compare(password, this.password);
   }
 
   @Column({
