@@ -35,10 +35,13 @@ export class User extends Model {
 
   @BeforeCreate
   static async hashPassword(instance: User) {
-    instance.password = await bcrypt.hash(instance.password, process.env.SALT);
+    instance.password = await bcrypt.hash(
+      instance.password,
+      process.env.SALT_ROUND,
+    );
   }
 
-  async validationPassword(password: string): Promise<boolean> {
+  async validatePassword(password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password);
   }
 

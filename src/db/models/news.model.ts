@@ -28,7 +28,6 @@ export class News extends Model {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   imagePath?: string;
 
