@@ -44,7 +44,7 @@ export class User extends Model {
   @Column({
     type: DataType.STRING,
   })
-  avatar?: string;
+  avatarPath: string;
 
   @Column({
     type: DataType.DATE,

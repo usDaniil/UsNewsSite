@@ -16,7 +16,7 @@ export class Tag extends Model {
     allowNull: false,
     unique: true,
   })
-  title: string;
+  value: string;
 
   @Column({
     type: DataType.DATE,

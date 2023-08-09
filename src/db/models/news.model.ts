@@ -30,7 +30,7 @@ export class News extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  image?: string;
+  imagePath?: string;
 
   @Column({
     type: DataType.TEXT,
