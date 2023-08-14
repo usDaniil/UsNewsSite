@@ -9,7 +9,7 @@ module.exports = {
       email: {
         unique: true,
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       login: {
         allowNull: false,
@@ -34,7 +34,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Users');
   },
 };
