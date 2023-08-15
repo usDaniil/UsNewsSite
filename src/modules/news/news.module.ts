@@ -11,5 +11,4 @@ import { NewsService } from './news.service';
   providers: [NewsService],
   imports: [SequelizeModule.forFeature([News])],
 })
-class NewsModule {}
-export { NewsModule };
+export class NewsModule {}
