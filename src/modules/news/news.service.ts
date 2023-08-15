@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { News } from 'src/db/models/news.model';
-import { Tag } from 'src/db/models/tag.model';
-import { TagNews } from 'src/db/models/tagnews.model';
-import { User } from 'src/db/models/user.model';
+
+import { News } from '../../db/models/news.model';
+import { Tag } from '../../db/models/tag.model';
+import { User } from '../../db/models/user.model';
 
 @Injectable()
 export class NewsService {
@@ -13,6 +13,20 @@ export class NewsService {
   ) {}
 
   findAllNews(): Promise<News[]> {
-    return this.newsRepo.findAll({ include: [Tag, User] });
+    return this.newsRepo.findAll({
+      include: [
+        {
+          model: Tag,
+          attributes: ['id', 'value'],
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          model: User,
+          attributes: ['id', 'login'],
+        },
+      ],
+    });
   }
 }

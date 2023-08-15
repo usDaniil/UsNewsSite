@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types/sequelize';
 
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TagNews } from './db/models/tagnews.model';
 import { Tag } from './db/models/tag.model';
@@ -25,7 +24,7 @@ import { NewsModule } from './modules/news/news.module';
     }),
     NewsModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService],
 })
 export class AppModule {}
