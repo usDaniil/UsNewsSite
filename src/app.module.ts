@@ -8,6 +8,7 @@ import { Tag } from './db/models/tag.model';
 import { News } from './db/models/news.model';
 import { User } from './db/models/user.model';
 import { NewsModule } from './modules/news/news.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { NewsModule } from './modules/news/news.module';
       models: [User, News, Tag, TagNews],
     }),
     NewsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
