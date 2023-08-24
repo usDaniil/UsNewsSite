@@ -26,7 +26,7 @@ export class AuthController {
     return this.authService.login(req);
   }
   @UseGuards(AuthGuard)
-  @Get('/whomi')
+  @Get('/whoami')
   tokenAuth(@Request() req) {
     return req.user;
   }
