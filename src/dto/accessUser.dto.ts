@@ -1,6 +1,6 @@
-import { User } from 'src/db/models/user.model';
+import { AuthUser } from './authUser';
 
 export class AccessUser {
   accessToken: string;
-  user: User;
+  user: AuthUser;
 }

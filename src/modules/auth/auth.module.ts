@@ -11,6 +11,7 @@ import { User } from 'src/db/models/user.model';
   imports: [
     SequelizeModule.forFeature([User]),
     JwtModule.registerAsync({
+      global: true,
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({

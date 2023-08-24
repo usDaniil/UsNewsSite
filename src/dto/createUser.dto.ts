@@ -19,5 +19,4 @@ export class CreateUser {
     message: 'no email',
   })
   email: string;
-
 }
