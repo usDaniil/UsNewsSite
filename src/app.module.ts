@@ -3,12 +3,12 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types/sequelize';
 
-import { TagNews } from './db/models/tagnews.model';
-import { Tag } from './db/models/tag.model';
 import { News } from './db/models/news.model';
+import { Tag } from './db/models/tag.model';
+import { TagNews } from './db/models/tagnews.model';
 import { User } from './db/models/user.model';
-import { NewsModule } from './modules/news/news.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { NewsModule } from './modules/news/news.module';
 
 @Module({
   imports: [

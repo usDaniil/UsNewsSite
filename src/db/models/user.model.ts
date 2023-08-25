@@ -1,13 +1,13 @@
+import * as bcrypt from 'bcrypt';
 import {
-  Table,
+  BeforeCreate,
   Column,
-  Model,
   DataType,
   HasMany,
   Length,
-  BeforeCreate,
+  Model,
+  Table,
 } from 'sequelize-typescript';
-import * as bcrypt from 'bcrypt';
 
 import { News } from './news.model';
 

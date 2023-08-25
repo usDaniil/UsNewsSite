@@ -1,16 +1,16 @@
 import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  ForeignKey,
   BelongsTo,
   BelongsToMany,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
 } from 'sequelize-typescript';
 
-import { User } from './user.model';
-import { TagNews } from './tagnews.model';
 import { Tag } from './tag.model';
+import { TagNews } from './tagnews.model';
+import { User } from './user.model';
 
 @Table
 export class News extends Model {

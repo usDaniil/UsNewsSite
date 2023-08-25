@@ -1,9 +1,9 @@
 import {
-  Table,
-  Column,
-  Model,
-  DataType,
   BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
 } from 'sequelize-typescript';
 
 import { News } from './news.model';
