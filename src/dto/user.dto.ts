@@ -1,8 +1,8 @@
 export class UserDto {
-  id?: number;
+  id: number;
   login: string;
   email: string;
-  avatarPath: string;
+  avatarPath?: string;
   createdAt: Date;
   updatedAt: Date;
 }

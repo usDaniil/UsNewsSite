@@ -10,6 +10,7 @@ import { User } from '../../db/models/user.model';
 import { CreateUserDto } from '../../dto/createUser.dto';
 import { LoginUserDto } from '../../dto/loginUser.dto';
 import { AuthUserDto } from '../../dto/authUser.dto';
+import { UserDto } from 'src/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
   ) {}
 
   async createToken(id: number): Promise<string> {
-    return this.jwtService.sign({ id });
+    return await this.jwtService.sign({ id });
   }
 
   checkUser(email: string): Promise<User> {
@@ -32,7 +33,7 @@ export class AuthService {
     if (existedUser) throw new BadRequestException('this user already exists');
     try {
       const createdUser = (await this.userRepo.create({ ...request })).toJSON();
-      delete createdUser.dataValues['password'];
+      delete createdUser['password'];
       const token = await this.createToken(createdUser.id);
       return { accessToken: token, user: createdUser };
     } catch (except) {
@@ -42,12 +43,14 @@ export class AuthService {
 
   async login(user: LoginUserDto): Promise<AuthUserDto> {
     const existedUser = await this.checkUser(user.email);
-    if (!existedUser) throw new NotFoundException('user not found');
+    if (existedUser === null || existedUser === undefined)
+      throw new NotFoundException('user not found');
     const isPasswordValid = await existedUser.validatePassword(user.password);
     if (!isPasswordValid) throw new BadRequestException('invalid password');
     const token = await this.createToken(existedUser.id);
-    delete existedUser.dataValues['password'];
-    return { accessToken: token, user: existedUser };
+    const userJson = existedUser.toJSON();
+    delete userJson['password'];
+    return { accessToken: token, user: userJson as UserDto };
   }
   async getUserByToken(id: number): Promise<User> {
     const user = await this.userRepo.findOne({ where: { id } });

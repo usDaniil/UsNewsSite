@@ -24,12 +24,12 @@ export class AuthController {
     return this.authService.register(req);
   }
   @Post('login')
-  login(@Body() req: LoginUserDto): Promise<AuthUserDto> {
-    return this.authService.login(req);
+  login(@Body() data: LoginUserDto): Promise<AuthUserDto> {
+    return this.authService.login(data);
   }
   @UseGuards(AuthGuard)
-  @Get('/whoami')
-  getUserByToken(@Request() req): Promise<UserDto> {
-    return req.user;
+  @Get('whoami')
+  getUserByToken(@Request() auth: Request): Promise<UserDto> {
+    return auth['user'];
   }
 }
