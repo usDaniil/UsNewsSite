@@ -10,7 +10,7 @@ import { User } from '../../db/models/user.model';
 import { CreateUserDto } from '../../dto/createUser.dto';
 import { LoginUserDto } from '../../dto/loginUser.dto';
 import { AuthUserDto } from '../../dto/authUser.dto';
-import { UserDto } from 'src/dto/user.dto';
+import { UserDto } from '../../dto/user.dto';
 
 @Injectable()
 export class AuthService {

@@ -11,10 +11,10 @@ import { AuthUserDto } from '../../dto/authUser.dto';
 import { CreateUserDto } from '../../dto/createUser.dto';
 import { LoginUserDto } from '../../dto/loginUser.dto';
 import { UserDto } from '../../dto/user.dto';
+import { RequestUserDto } from '../../types/requestUser.dto';
 
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { RequestUserDto } from 'src/types/requestUser.dto';
 
 @Controller('auth')
 export class AuthController {
