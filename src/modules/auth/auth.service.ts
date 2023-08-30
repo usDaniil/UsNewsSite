@@ -34,8 +34,8 @@ export class AuthService {
       throw new BadRequestException('this user already exists');
     try {
       const createdUser = (await this.userRepo.create({ ...request })).toJSON();
-      delete createdUser['password'];
-      const token = await this.createToken(createdUser.id);
+      delete createdUser.password;
+      const token = this.createToken(createdUser.id);
       return { accessToken: token, user: createdUser };
     } catch (except) {
       throw new BadRequestException('user has not been created');
@@ -48,14 +48,14 @@ export class AuthService {
       throw new NotFoundException('user not found');
     const isPasswordValid = await existedUser.validatePassword(user.password);
     if (!isPasswordValid) throw new BadRequestException('invalid password');
-    const token = await this.createToken(existedUser.id);
+    const token = this.createToken(existedUser.id);
     const userJson = existedUser.toJSON();
     delete userJson.password;
     return { accessToken: token, user: userJson as UserDto };
   }
   async getUserByToken(id: number): Promise<User> {
-    const user = await this.userRepo.findOne({ where: { id } });
-    delete user.dataValues['password'];
+    const user = (await this.userRepo.findOne({ where: { id } })).toJSON();
+    delete user.password;
     return user;
   }
 }

@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     try {
-      const payload = await this.jwtService.decode(token);
+      const payload = this.jwtService.decode(token);
       request.user = this.authService.getUserByToken(payload['id']);
     } catch {
       throw new UnauthorizedException();
