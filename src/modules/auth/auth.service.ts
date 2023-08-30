@@ -20,8 +20,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async createToken(id: number): Promise<string> {
-    return await this.jwtService.sign({ id });
+  createToken(id: number): string {
+    return this.jwtService.sign({ id });
   }
 
   checkUser(email: string): Promise<User> {
@@ -30,7 +30,8 @@ export class AuthService {
 
   async register(request: CreateUserDto): Promise<AuthUserDto> {
     const existedUser = await this.checkUser(request.email);
-    if (existedUser) throw new BadRequestException('this user already exists');
+    if (existedUser != null && existedUser != undefined)
+      throw new BadRequestException('this user already exists');
     try {
       const createdUser = (await this.userRepo.create({ ...request })).toJSON();
       delete createdUser['password'];
@@ -43,13 +44,13 @@ export class AuthService {
 
   async login(user: LoginUserDto): Promise<AuthUserDto> {
     const existedUser = await this.checkUser(user.email);
-    if (existedUser === null || existedUser === undefined)
+    if (existedUser == null || existedUser == undefined)
       throw new NotFoundException('user not found');
     const isPasswordValid = await existedUser.validatePassword(user.password);
     if (!isPasswordValid) throw new BadRequestException('invalid password');
     const token = await this.createToken(existedUser.id);
     const userJson = existedUser.toJSON();
-    delete userJson['password'];
+    delete userJson.password;
     return { accessToken: token, user: userJson as UserDto };
   }
   async getUserByToken(id: number): Promise<User> {

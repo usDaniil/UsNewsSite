@@ -14,6 +14,7 @@ import { UserDto } from '../../dto/user.dto';
 
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { RequestUserDto } from 'src/types/requestUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -29,7 +30,7 @@ export class AuthController {
   }
   @UseGuards(AuthGuard)
   @Get('whoami')
-  getUserByToken(@Request() auth: Request): Promise<UserDto> {
-    return auth['user'];
+  getUserByToken(@Request() auth: RequestUserDto): UserDto {
+    return auth.user;
   }
 }
