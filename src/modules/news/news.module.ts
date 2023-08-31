@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 
-import { News } from '../../db/models/news.model';
-
 import { NewsController } from './news.controller';
+import { News } from './news.model';
 import { NewsService } from './news.service';
 
 @Module({

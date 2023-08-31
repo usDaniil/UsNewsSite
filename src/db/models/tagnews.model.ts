@@ -6,8 +6,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { News } from './news.model';
-import { Tag } from './tag.model';
+import { News } from '../../modules/news/news.model';
+import { Tag } from '../../modules/tag/tag.model';
 
 @Table
 export class TagNews extends Model {

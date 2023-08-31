@@ -7,12 +7,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { AuthUserDto } from '../../dto/authUser.dto';
-import { CreateUserDto } from '../../dto/createUser.dto';
-import { LoginUserDto } from '../../dto/loginUser.dto';
-import { UserDto } from '../../dto/user.dto';
-import { RequestUserDto } from '../../types/requestUser.dto';
+import { UserDto } from '../user/dto/user.dto';
 
+import { AuthUserDto } from './dto/authUser.dto';
+import { CreateUserDto } from './dto/createUser.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
+import { RequestUserDto } from './types/requestUser';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 

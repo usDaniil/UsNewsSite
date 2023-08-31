@@ -9,7 +9,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { News } from './news.model';
+import { News } from '../news/news.model';
 
 @Table
 export class User extends Model {

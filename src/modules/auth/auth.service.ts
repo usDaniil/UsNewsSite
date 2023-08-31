@@ -4,19 +4,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/sequelize';
 
-import { User } from '../../db/models/user.model';
-import { CreateUserDto } from '../../dto/createUser.dto';
-import { LoginUserDto } from '../../dto/loginUser.dto';
-import { AuthUserDto } from '../../dto/authUser.dto';
-import { UserDto } from '../../dto/user.dto';
+import { UserDto } from '../user/dto/user.dto';
+import { User } from '../user/user.model';
+import { UserService } from '../user/user.service';
+
+import { AuthUserDto } from './dto/authUser.dto';
+import { CreateUserDto } from './dto/createUser.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User)
-    private readonly userRepo: typeof User,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
 
@@ -24,16 +24,14 @@ export class AuthService {
     return this.jwtService.sign({ id });
   }
 
-  checkUser(email: string): Promise<User> {
-    return this.userRepo.findOne({ where: { email } });
-  }
-
   async register(request: CreateUserDto): Promise<AuthUserDto> {
-    const existedUser = await this.checkUser(request.email);
-    if (existedUser != null && existedUser != undefined)
+    const existedUser = await this.userService.checkUser(request.email);
+    if (existedUser != null)
       throw new BadRequestException('this user already exists');
     try {
-      const createdUser = (await this.userRepo.create({ ...request })).toJSON();
+      const createdUser = (
+        await this.userService.createUser({ ...request })
+      ).toJSON();
       delete createdUser.password;
       const token = this.createToken(createdUser.id);
       return { accessToken: token, user: createdUser };
@@ -43,9 +41,8 @@ export class AuthService {
   }
 
   async login(user: LoginUserDto): Promise<AuthUserDto> {
-    const existedUser = await this.checkUser(user.email);
-    if (existedUser == null || existedUser == undefined)
-      throw new NotFoundException('user not found');
+    const existedUser = await this.userService.checkUser(user.email);
+    if (existedUser == null) throw new NotFoundException('user not found');
     const isPasswordValid: boolean = await existedUser.validatePassword(
       user.password,
     );
@@ -56,7 +53,7 @@ export class AuthService {
     return { accessToken: token, user: userJson as UserDto };
   }
   async getUserByToken(id: number): Promise<User> {
-    const user = (await this.userRepo.findOne({ where: { id } })).toJSON();
+    const user = (await this.userService.findUser(id)).toJSON();
     delete user.password;
     return user;
   }
