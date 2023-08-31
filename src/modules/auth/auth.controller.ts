@@ -21,8 +21,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  register(@Body() req: CreateUserDto): Promise<AuthUserDto> {
-    return this.authService.register(req);
+  register(@Body() data: CreateUserDto): Promise<AuthUserDto> {
+    return this.authService.register(data);
   }
   @Post('login')
   login(@Body() data: LoginUserDto): Promise<AuthUserDto> {

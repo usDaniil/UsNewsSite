@@ -46,7 +46,9 @@ export class AuthService {
     const existedUser = await this.checkUser(user.email);
     if (existedUser == null || existedUser == undefined)
       throw new NotFoundException('user not found');
-    const isPasswordValid = await existedUser.validatePassword(user.password);
+    const isPasswordValid: boolean = await existedUser.validatePassword(
+      user.password,
+    );
     if (!isPasswordValid) throw new BadRequestException('invalid password');
     const token = this.createToken(existedUser.id);
     const userJson = existedUser.toJSON();
