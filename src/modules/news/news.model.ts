@@ -8,8 +8,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { TagNews } from '../../db/models/tagnews.model';
 import { Tag } from '../tag/tag.model';
+import { TagNews } from '../tag/tagnews.model';
 import { User } from '../user/user.model';
 
 @Table

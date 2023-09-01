@@ -12,7 +12,7 @@ import { UserDto } from '../user/dto/user.dto';
 import { AuthUserDto } from './dto/authUser.dto';
 import { CreateUserDto } from './dto/createUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
-import { RequestUserDto } from './types/requestUser';
+import { RequestUser } from './types/requestUser';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
@@ -30,7 +30,7 @@ export class AuthController {
   }
   @UseGuards(AuthGuard)
   @Get('whoami')
-  getUserByToken(@Request() auth: RequestUserDto): UserDto {
+  getUserByToken(@Request() auth: RequestUser): UserDto {
     return auth.user;
   }
 }
