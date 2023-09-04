@@ -1,15 +1,15 @@
+import * as bcrypt from 'bcrypt';
 import {
-  Table,
+  BeforeCreate,
   Column,
-  Model,
   DataType,
   HasMany,
   Length,
-  BeforeCreate,
+  Model,
+  Table,
 } from 'sequelize-typescript';
-import bcrypt from 'bcrypt';
 
-import { News } from './news.model';
+import { News } from '../news/news.model';
 
 @Table
 export class User extends Model {
@@ -37,7 +37,7 @@ export class User extends Model {
   static async hashPassword(instance: User) {
     instance.password = await bcrypt.hash(
       instance.password,
-      process.env.SALT_ROUND,
+      parseInt(process.env.SALT_ROUND),
     );
   }
 

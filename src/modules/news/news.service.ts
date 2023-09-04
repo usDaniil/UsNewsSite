@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { News } from '../../db/models/news.model';
-import { Tag } from '../../db/models/tag.model';
-import { User } from '../../db/models/user.model';
+import { Tag } from '../tag/tag.model';
+import { User } from '../user/user.model';
+
+import { News } from './news.model';
 
 @Injectable()
 export class NewsService {

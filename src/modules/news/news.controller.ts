@@ -1,7 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { News } from '../../db/models/news.model';
-
+import { News } from './news.model';
 import { NewsService } from './news.service';
 
 @Controller('news')
