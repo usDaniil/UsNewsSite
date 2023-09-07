@@ -1,4 +1,4 @@
-import { News } from 'src/modules/news/news.model';
+import { News } from '../../news/news.model';
 
 export class UserDto {
   id: number;

@@ -24,7 +24,15 @@ export class UserService {
       include: [
         {
           model: News,
-          attributes: ['header', 'imagePath', 'text', 'createdAt', 'updatedAt'],
+          attributes: [
+            'header',
+            'imagePath',
+            'text',
+            'createdAt',
+            'updatedAt',
+            'createdAt',
+            'id',
+          ],
           include: [
             {
               model: Tag,
