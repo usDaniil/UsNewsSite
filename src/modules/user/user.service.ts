@@ -92,7 +92,6 @@ export class UserService {
         if (exception instanceof HttpException) {
           throw new BadRequestException(exception.message);
         }
-        console.log(exception);
         throw new BadRequestException('failed to change data');
       }
     } else {
