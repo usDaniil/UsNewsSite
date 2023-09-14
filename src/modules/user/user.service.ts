@@ -34,6 +34,12 @@ export class UserService {
   getUserById(id: number): Promise<User> {
     return this.userRepo.findOne({
       where: { id },
+    });
+  }
+  getUserAndNewsById(id: number): Promise<User> {
+    return this.userRepo.findOne({
+      where: { id },
+      attributes: ['id', 'login', 'avatarPath', 'createdAt', 'updatedAt'],
       include: [
         {
           model: News,
@@ -56,7 +62,6 @@ export class UserService {
       ],
     });
   }
-
   createUser(request: CreateUserDto): Promise<User> {
     return this.userRepo.create({ ...request });
   }
