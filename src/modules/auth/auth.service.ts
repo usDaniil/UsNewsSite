@@ -4,6 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import {
+  INVALID_PASSWORD,
+  NO_CREATED_USER,
+  USER_EXISTS,
+  USER_NOT_FOUND,
+} from 'src/constants/errorMessange';
 
 import { UserDto } from '../user/dto/user.dto';
 import { User } from '../user/user.model';
@@ -26,8 +32,7 @@ export class AuthService {
 
   async register(request: CreateUserDto): Promise<AuthUserDto> {
     const existedUser = await this.userService.checkUser(request.email);
-    if (existedUser != null)
-      throw new BadRequestException('this user already exists');
+    if (existedUser != null) throw new BadRequestException(USER_EXISTS);
     try {
       const createdUser = (
         await this.userService.createUser({ ...request })
@@ -36,17 +41,17 @@ export class AuthService {
       const token = this.createToken(createdUser.id);
       return { accessToken: token, user: createdUser };
     } catch (except) {
-      throw new BadRequestException('user has not been created');
+      throw new BadRequestException(NO_CREATED_USER);
     }
   }
 
   async login(user: LoginUserDto): Promise<AuthUserDto> {
     const existedUser = await this.userService.checkUser(user.email);
-    if (existedUser == null) throw new NotFoundException('user not found');
+    if (existedUser == null) throw new NotFoundException(USER_NOT_FOUND);
     const isPasswordValid: boolean = await existedUser.validatePassword(
       user.password,
     );
-    if (!isPasswordValid) throw new BadRequestException('invalid password');
+    if (!isPasswordValid) throw new BadRequestException(INVALID_PASSWORD);
     const token = this.createToken(existedUser.id);
     const userJson = existedUser.toJSON();
     delete userJson.password;

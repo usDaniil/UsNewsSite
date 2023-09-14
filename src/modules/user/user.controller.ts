@@ -15,7 +15,7 @@ import { RequestUser } from '../auth/types/requestUser';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserService } from './user.service';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -31,7 +31,6 @@ export class UserController {
     @Request() auth: RequestUser,
     @Body() updateUser: UpdateUserDto,
   ) {
-    const user = await auth.user;
-    return this.userService.editUser(id, user.id, updateUser);
+    return this.userService.editUser(id, auth.user.id, updateUser);
   }
 }
