@@ -31,6 +31,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('whoami')
   getUserByToken(@Request() auth: RequestUser): UserDto {
-    return auth.user as UserDto;
+    return auth.user;
   }
 }

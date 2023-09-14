@@ -23,8 +23,10 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Get(':id')
-  getUserById(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.getUserById(id);
+  async getUserById(@Param('id', ParseIntPipe) id: number) {
+    const user = (await this.userService.getUserById(id)).toJSON();
+    delete user.password;
+    return user;
   }
   @UseGuards(AuthGuard)
   @Patch(':id')
@@ -34,6 +36,6 @@ export class UserController {
     @Body() updateUser: UpdateUserDto,
   ) {
     if (id !== auth.user.id) throw new ForbiddenException(USER_UNAUTHORIZE);
-    return this.userService.editUser(auth.user, updateUser);
+    return this.userService.editUser(id, updateUser);
   }
 }

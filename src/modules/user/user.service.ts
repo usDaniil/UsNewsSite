@@ -34,14 +34,6 @@ export class UserService {
   getUserById(id: number): Promise<User> {
     return this.userRepo.findOne({
       where: { id },
-      attributes: [
-        'id',
-        'login',
-        'email',
-        'createdAt',
-        'updatedAt',
-        'avatarPath',
-      ],
       include: [
         {
           model: News,
@@ -69,16 +61,21 @@ export class UserService {
     return this.userRepo.create({ ...request });
   }
   async editUser(
-    user,
+    id,
     { login, newPassword, currentPassword }: UpdateUserDto,
   ): Promise<User> {
     if (login == null && newPassword == null)
       throw new BadRequestException(NO_EDIT_DATA);
 
     try {
-      if (currentPassword != null && newPassword != null) {
-        if (!(await user.validatePassword(currentPassword)))
-          throw new BadRequestException(INVALID_PASSWORD);
+      const user: User = await this.getUserById(id);
+      if (
+        currentPassword != null &&
+        newPassword != null &&
+        currentPassword !== newPassword
+      ) {
+        const isValid = await user.validatePassword(currentPassword);
+        if (!isValid) throw new BadRequestException(INVALID_PASSWORD);
         this.userRepo.update(
           { password: newPassword },
           { where: { id: user.id }, individualHooks: true },
