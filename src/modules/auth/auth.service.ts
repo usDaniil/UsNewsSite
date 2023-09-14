@@ -58,8 +58,7 @@ export class AuthService {
     return { accessToken: token, user: userJson as UserDto };
   }
   async getUserByToken(id: number): Promise<User> {
-    const user = (await this.userService.getUserById(id)).toJSON();
-    delete user.password;
+    const user = await this.userService.getUserById(id);
     return user;
   }
 }

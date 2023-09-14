@@ -5,13 +5,12 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+
 import {
   FAILED_TO_CHANGE_DATA,
   INVALID_PASSWORD,
   NO_EDIT_DATA,
-  USER_UNAUTHORIZE,
-} from 'src/constants/errorMessange';
-
+} from '../../constants/errorMessange';
 import { CreateUserDto } from '../auth/dto/createUser.dto';
 import { News } from '../news/news.model';
 import { Tag } from '../tag/tag.model';
@@ -35,6 +34,14 @@ export class UserService {
   getUserById(id: number): Promise<User> {
     return this.userRepo.findOne({
       where: { id },
+      attributes: [
+        'id',
+        'login',
+        'email',
+        'createdAt',
+        'updatedAt',
+        'avatarPath',
+      ],
       include: [
         {
           model: News,
@@ -62,27 +69,23 @@ export class UserService {
     return this.userRepo.create({ ...request });
   }
   async editUser(
-    currentId,
-    authId,
+    user,
     { login, newPassword, currentPassword }: UpdateUserDto,
   ): Promise<User> {
-    if (currentId !== authId) throw new ForbiddenException(USER_UNAUTHORIZE);
-
     if (login == null && newPassword == null)
       throw new BadRequestException(NO_EDIT_DATA);
 
     try {
-      const user: User = await this.getUserById(authId);
       if (currentPassword != null && newPassword != null) {
         if (!(await user.validatePassword(currentPassword)))
           throw new BadRequestException(INVALID_PASSWORD);
         this.userRepo.update(
           { password: newPassword },
-          { where: { id: authId }, individualHooks: true },
+          { where: { id: user.id }, individualHooks: true },
         );
       }
       if (login != null) {
-        this.userRepo.update({ login }, { where: { id: authId } });
+        this.userRepo.update({ login }, { where: { id: user.id } });
       }
       const userJson = user.toJSON();
       userJson.login = login;

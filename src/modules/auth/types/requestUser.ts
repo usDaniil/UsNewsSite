@@ -1,7 +1,7 @@
 import { Request } from '@nestjs/common';
 
-import { UserDto } from '../../user/dto/user.dto';
+import { User } from '../../user/user.model';
 
 export interface RequestUser extends Request {
-  user: UserDto;
+  user: User;
 }
