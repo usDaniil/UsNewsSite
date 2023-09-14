@@ -39,7 +39,13 @@ export class UserService {
   getUserAndNewsById(id: number): Promise<User> {
     return this.userRepo.findOne({
       where: { id },
-      attributes: ['id', 'login', 'avatarPath', 'createdAt', 'updatedAt'],
+      attributes: [
+        'id',
+        'login',
+        'avatarPath',
+        'createdAt', 
+        'updatedAt',
+      ],
       include: [
         {
           model: News,
