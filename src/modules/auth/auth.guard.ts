@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = this.jwtService.decode(token);
-      request.user = this.authService.getUserByToken(payload['id']);
+      request.user = await this.authService.getUserByToken(payload['id']);
     } catch {
       throw new UnauthorizedException();
     }

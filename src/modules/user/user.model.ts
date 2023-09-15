@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import {
   BeforeCreate,
+  BeforeUpdate,
   Column,
   DataType,
   HasMany,
@@ -34,6 +35,7 @@ export class User extends Model {
   password: string;
 
   @BeforeCreate
+  @BeforeUpdate
   static async hashPassword(instance: User) {
     instance.password = await bcrypt.hash(
       instance.password,
