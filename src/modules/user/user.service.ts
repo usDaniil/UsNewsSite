@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import {
   FAILED_TO_CHANGE_DATA,
   INVALID_PASSWORD,
-  NO_EDIT_DATA,
 } from '../../constants/errorMessage';
 import { CreateUserDto } from '../auth/dto/createUser.dto';
 import { News } from '../news/news.model';
@@ -72,23 +71,28 @@ export class UserService {
     id: number,
     { login, newPassword, currentPassword }: UpdateUserDto,
   ): Promise<User> {
+    
     try {
       const user: User = await this.getUserById(id);
+
       if (
         currentPassword != null &&
         newPassword != null &&
         currentPassword !== newPassword
       ) {
         const isValid = await user.validatePassword(currentPassword);
+
         if (!isValid) throw new BadRequestException(INVALID_PASSWORD);
         this.userRepo.update(
           { password: newPassword },
           { where: { id: user.id }, individualHooks: true },
         );
       }
+
       if (login != null) {
         this.userRepo.update({ login }, { where: { id: user.id } });
       }
+
       const userJson = user.toJSON();
       userJson.login = login;
       delete userJson.password;
