@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { USER_UNAUTHORIZE } from '../../constants/errorMessange';
+import { FORBIDDEN } from '../../constants/errorMessage';
 import { AuthGuard } from '../auth/auth.guard';
 import { RequestUser } from '../auth/types/requestUser';
 
@@ -33,7 +33,7 @@ export class UserController {
     @Request() auth: RequestUser,
     @Body() updateUser: UpdateUserDto,
   ) {
-    if (id !== auth.user.id) throw new ForbiddenException(USER_UNAUTHORIZE);
+    if (id !== auth.user.id) throw new ForbiddenException(FORBIDDEN);
     return this.userService.editUser(id, updateUser);
   }
 }

@@ -4,13 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
 import {
   INVALID_PASSWORD,
   NO_CREATED_USER,
   USER_EXISTS,
   USER_NOT_FOUND,
-} from 'src/constants/errorMessange';
-
+} from '../../constants/errorMessage';
 import { UserDto } from '../user/dto/user.dto';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';

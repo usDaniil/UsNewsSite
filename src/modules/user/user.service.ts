@@ -1,16 +1,11 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  HttpException,
-  Injectable,
-} from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import {
   FAILED_TO_CHANGE_DATA,
   INVALID_PASSWORD,
   NO_EDIT_DATA,
-} from '../../constants/errorMessange';
+} from '../../constants/errorMessage';
 import { CreateUserDto } from '../auth/dto/createUser.dto';
 import { News } from '../news/news.model';
 import { Tag } from '../tag/tag.model';
@@ -42,8 +37,9 @@ export class UserService {
       attributes: [
         'id',
         'login',
+        'email',
         'avatarPath',
-        'createdAt', 
+        'createdAt',
         'updatedAt',
       ],
       include: [
@@ -71,13 +67,11 @@ export class UserService {
   createUser(request: CreateUserDto): Promise<User> {
     return this.userRepo.create({ ...request });
   }
+
   async editUser(
-    id,
+    id: number,
     { login, newPassword, currentPassword }: UpdateUserDto,
   ): Promise<User> {
-    if (login == null && newPassword == null)
-      throw new BadRequestException(NO_EDIT_DATA);
-
     try {
       const user: User = await this.getUserById(id);
       if (
