@@ -30,4 +30,7 @@ export class NewsService {
       ],
     });
   }
+  addNews(news: News): Promise<News> {
+    return this.newsRepo.create({ ...news });
+  }
 }

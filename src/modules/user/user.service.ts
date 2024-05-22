@@ -71,7 +71,6 @@ export class UserService {
     id: number,
     { login, newPassword, currentPassword }: UpdateUserDto,
   ): Promise<User> {
-    
     try {
       const user: User = await this.getUserById(id);
 

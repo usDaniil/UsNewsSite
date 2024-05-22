@@ -39,8 +39,10 @@ export class AuthService {
       ).toJSON();
       delete createdUser.password;
       const token = this.createToken(createdUser.id);
+      console.log('token', token);
       return { accessToken: token, user: createdUser };
     } catch (except) {
+      console.log(except);
       throw new BadRequestException(NO_CREATED_USER);
     }
   }

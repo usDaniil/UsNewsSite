@@ -14,4 +14,9 @@ export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   newPassword?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  imagePath?: string;
 }
