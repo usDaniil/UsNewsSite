@@ -27,7 +27,7 @@ export class News extends Model {
   userId: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
   })
   imagePath?: string;
 

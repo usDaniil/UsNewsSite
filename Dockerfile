@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
-RUN npx sequelize-cli db:migrate
+RUN yarn sequelize-cli db:migrate
 
-RUN npm run build
+RUN yarn build
 
 CMD [ "npm", "run", "start:dev" ]

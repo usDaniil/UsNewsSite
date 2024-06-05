@@ -69,7 +69,7 @@ export class UserService {
 
   async editUser(
     id: number,
-    { login, newPassword, currentPassword }: UpdateUserDto,
+    { login, newPassword, currentPassword, avatarPath }: UpdateUserDto,
   ): Promise<User> {
     try {
       const user: User = await this.getUserById(id);
@@ -91,7 +91,9 @@ export class UserService {
       if (login != null) {
         this.userRepo.update({ login }, { where: { id: user.id } });
       }
-
+      if (avatarPath != null) {
+        this.userRepo.update({ avatarPath }, { where: { id: user.id } });
+      }
       const userJson = user.toJSON();
       userJson.login = login;
       delete userJson.password;

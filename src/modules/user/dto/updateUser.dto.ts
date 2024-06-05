@@ -18,5 +18,5 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  imagePath?: string;
+  avatarPath?: string;
 }

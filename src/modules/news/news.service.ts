@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Tag } from '../tag/tag.model';
 import { User } from '../user/user.model';
 
+import { CreateNews, INews } from './types/news.dto';
 import { News } from './news.model';
 
 @Injectable()
@@ -14,7 +15,27 @@ export class NewsService {
   ) {}
 
   findAllNews(): Promise<News[]> {
-    return this.newsRepo.findAll({
+    const news = this.newsRepo.findAll({
+      include: [
+        {
+          model: Tag,
+          attributes: ['id', 'value'],
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          model: User,
+          attributes: ['id', 'login'],
+        },
+      ],
+    });
+    return news;
+  }
+
+  findNewsById(id: number): Promise<News> {
+    return this.newsRepo.findOne({
+      where: { id },
       include: [
         {
           model: Tag,
@@ -30,7 +51,8 @@ export class NewsService {
       ],
     });
   }
-  addNews(news: News): Promise<News> {
+  addNews(news: CreateNews): Promise<News> {
+    console.log(news);
     return this.newsRepo.create({ ...news });
   }
 }

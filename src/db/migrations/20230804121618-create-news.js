@@ -19,8 +19,8 @@ module.exports = {
           key: 'id',
         },
       },
-      imagePath: {
-        type: Sequelize.STRING,
+      image: {
+        type: Sequelize.DATE,
       },
       text: {
         allowNull: false,
