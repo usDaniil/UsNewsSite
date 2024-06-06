@@ -10,6 +10,7 @@ import { NewsModule } from './modules/news/news.module';
 import { Tag } from './modules/tag/tag.model';
 import { TagNews } from './modules/tag/tagnews.model';
 import { User } from './modules/user/user.model';
+import { OpenaiModule } from './modules/openai/openai.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { User } from './modules/user/user.model';
     NewsModule,
     AuthModule,
     FileModule,
+    OpenaiModule,
   ],
   controllers: [],
   providers: [],
